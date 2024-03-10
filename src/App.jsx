@@ -3,6 +3,14 @@
     Enable users to select a row in the table by either clicking 
     the row or clicking a checkbox using custom select components. 
     (MaterialCheckbox)
+
+    - https://mui.com/material-ui/getting-started/installation/
+    - npm install @mui/material @emotion/react @emotion/styled
+
+    - Material UI uses Emotion as its default styling engine. 
+      If you want to use styled-components instead, run one of 
+      the following commands:
+      npm install @mui/material @mui/styled-engine-sc styled-components
   ================================================
   Previous Task: 
     Enable users to select a row in the table by either clicking 
