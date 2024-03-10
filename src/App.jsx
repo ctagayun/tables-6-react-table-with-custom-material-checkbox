@@ -1,6 +1,11 @@
 /*
   Task: 
     Enable users to select a row in the table by either clicking 
+    the row or clicking a checkbox using custom select components. 
+    (MaterialCheckbox)
+  ================================================
+  Previous Task: 
+    Enable users to select a row in the table by either clicking 
     the row or clicking a checkbox.
 */
 import * as React from 'react';
@@ -16,7 +21,7 @@ import { useRowSelect, //will enable users to select a row
 } from '@table-library/react-table-library/select';
 
 //replace the select components entirely with custom components.
-//import MaterialCheckbox from '@mui/material/Checkbox';
+import MaterialCheckbox from '@mui/material/Checkbox';
 
 //Import stuff from React Table Library
 import {
@@ -174,6 +179,11 @@ const App = () => {
     could use the useRowSelect options. In this way, you can 
     inverse the behavior (example below), or enforce only single 
     or multi select:
+
+    Finally, with React Table Library it's possible to replace 
+    the select components entirely with custom components.
+    The following example shows how to use Material UI components 
+    with React Table Library.
   */ 
   return (
       <Table data={data} theme={theme} select={select}> 
@@ -181,7 +191,16 @@ const App = () => {
           <> 
             <Header>
               <HeaderRow>
-                <HeaderCellSelect />                       
+              <HeaderCell stiff>
+                <MaterialCheckbox
+                  size="small"
+                  checked={select.state.all}
+                  indeterminate={
+                    !select.state.all && !select.state.none
+                  }
+                  onChange={select.fns.onToggleAll}
+                />
+              </HeaderCell>                  
                 <HeaderCell>Task</HeaderCell>
                 <HeaderCell>Deadline</HeaderCell>
                 <HeaderCell>Type</HeaderCell>
@@ -191,7 +210,18 @@ const App = () => {
             <Body>
               {tableList.map((item) => (
                 <Row key={item.id} item={item}>
-                    <CellSelect item={item} />  
+                    <Cell stiff>
+                        <MaterialCheckbox
+                        size="small"
+                        checked={select.state.ids.includes(
+                          item.id
+                        )}
+                        onChange={() =>
+                          select.fns.onToggleById(item.id)
+                        }
+                      />
+                    </Cell>
+
                     <Cell>{item.name}</Cell>
                     <Cell>
                       {item.deadline.toLocaleDateString('en-US',
